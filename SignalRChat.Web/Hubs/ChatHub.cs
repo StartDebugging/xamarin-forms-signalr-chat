@@ -5,9 +5,9 @@ namespace SignalRChat.Web.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task Send(string name, string message)
+        public async Task Send(string from, string message)
         {
-            await Clients.All.SendAsync("broadcastMessage", name, message);
+            await Clients.Others.SendAsync("broadcastMessage", from, message);
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignalRChat.Web.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace SignalRChat.Web
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }
