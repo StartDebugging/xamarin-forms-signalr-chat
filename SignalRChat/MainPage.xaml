@@ -8,7 +8,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView x:Name="MessagesListView" ItemsSource="{Binding Messages}">
+        <ListView ItemsSource="{Binding Messages}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -24,14 +24,14 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Clicked="ConnectButton_Clicked" x:Name="ConnectButton" Grid.Row="1" Text="Connect" />
-        <Grid x:Name="MessageEntryGrid" Grid.Row="1" IsVisible="False">
+        <Button Command="{Binding ConnectCommand}" IsVisible="{Binding IsConnected, Converter={StaticResource BooleanToOppositeBooleanConverter}}" Grid.Row="1" Text="Connect" />
+        <Grid IsVisible="{Binding IsConnected}" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Entry x:Name="MessageEntry" />
-            <Button x:Name="SendButton" Clicked="SendButton_Clicked" Grid.Column="1" Text="SEND" TextColor="White" Background="#0069c0" />
+            <Entry Text="{Binding Message, Mode=TwoWay}" />
+            <Button Command="{Binding SendCommand}" Grid.Column="1" Text="SEND" TextColor="White" Background="#0069c0" />
         </Grid>
     </Grid>
 
