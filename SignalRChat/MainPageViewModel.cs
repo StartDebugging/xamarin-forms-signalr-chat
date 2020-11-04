@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ namespace SignalRChat
 {
     public class MainPageViewModel : INotifyPropertyChanged
     {
-        private const string SIGNALR_CHAT_SERVER_URL = "https://signalrchatweb.azurewebsites.net/chat";
         private HubConnection _connection;
 
         private string _message;
@@ -27,6 +27,7 @@ namespace SignalRChat
         }
 
         private bool _isConnected;
+        private readonly IConfiguration _configuration;
 
         public bool IsConnected
         {
@@ -43,8 +44,10 @@ namespace SignalRChat
         public Command ConnectCommand { get; }
         public Command SendCommand { get; }
 
-        public MainPageViewModel()
+        public MainPageViewModel(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             Messages = new ObservableCollection<Message>();
 
             ConnectCommand = new Command(ConnectExecute, param => !IsConnected);
@@ -72,8 +75,10 @@ namespace SignalRChat
         {
             try
             {
+                var charHubUrl = _configuration["ChatHubUrl"];
+
                 _connection = new HubConnectionBuilder()
-                    .WithUrl(SIGNALR_CHAT_SERVER_URL)
+                    .WithUrl(charHubUrl)
                     .Build();
 
                 _connection.On<string, string>("broadcastMessage", (from, message) => AppendMessage(from, message));
