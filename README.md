@@ -6,3 +6,4 @@ If you would like to run your own backend, you can either deploy or run locally 
 
 Related blog posts:
 - [How to publicly expose your local SignalR service for consumption by mobile clients using ngrok](https://startdebugging.net/2020/11/how-to-publicly-expose-local-signalr-service-publicly-for-mobile-clients/)
+- [How to use appsettings.json with Xamarin.Forms](https://startdebugging.net/2020/11/how-to-use-appsettings-json-with-xamarin-forms/)
